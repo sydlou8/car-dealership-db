@@ -27,34 +27,22 @@ public class CarDealership {
        switch (choice) {
            case 1:
                double[] priceRange = searchScreen.priceRange();
-               displays.display(vehicleController.searchByPriceRange(
-                               priceRange[0],
-                               priceRange[1]
-                       ));
+               displays.display(vehicleController.searchByPriceRange(priceRange[0], priceRange[1]));
                break;
            case 2:
                String[] makeModel = searchScreen.makeModel();
-               displays.display(vehicleController.searchByMakeModel(
-                               makeModel[0],
-                               makeModel[1]
-                       ));
+               displays.display(vehicleController.searchByMakeModel(makeModel[0], makeModel[1]));
                break;
            case 3:
                int[] yearRange = searchScreen.yearRange();
-               displays.display(vehicleController.searchByYearRange(
-                               yearRange[0],
-                               yearRange[1]
-                       ));
+               displays.display(vehicleController.searchByYearRange(yearRange[0], yearRange[1]));
                break;
            case 4:
                displays.display(vehicleController.searchByColor(searchScreen.color()));
                break;
            case 5:
                int[] mileage = searchScreen.mileage();
-               displays.display(vehicleController.searchByMileage(
-                               mileage[0],
-                               mileage[1]
-                       ));
+               displays.display(vehicleController.searchByMileage(mileage[0], mileage[1]));
                break;
            case 6:
                displays.display(vehicleController.searchByVehicleType(searchScreen.vehicleType()));
