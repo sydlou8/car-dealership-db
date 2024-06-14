@@ -1,7 +1,10 @@
 package com.pluralsight;
 
+import com.pluralsight.application.CarDealership;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        CarDealership app = new CarDealership();
+        app.run();
     }
 }
