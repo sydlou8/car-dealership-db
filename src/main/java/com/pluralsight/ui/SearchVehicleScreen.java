@@ -6,8 +6,6 @@ public class SearchVehicleScreen {
     Displays displays = new Displays();
     Scanner userInput = new Scanner(System.in);
 
-    // get all
-
     // search by price range
     public double[] priceRange() {
         double[] range = new double[2];
@@ -71,8 +69,18 @@ public class SearchVehicleScreen {
     // search by mileage
     public int[] mileage() {
         int[] range = new int[2];
-
-        return range;
+        while(true) {
+            try {
+                System.out.println("-".repeat(40));
+                System.out.print("Please enter minimum mileage: ");
+                range[0] = Integer.parseInt(userInput.nextLine().strip());
+                System.out.print("Please enter maximum mileage: ");
+                range[1] = Integer.parseInt(userInput.nextLine().strip());
+                return range;
+            } catch (Exception _) {
+                displays.err();
+            }
+        }
     }
     // search by type
     public String vehicleType() {

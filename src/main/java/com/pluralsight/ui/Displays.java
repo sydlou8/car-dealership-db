@@ -9,7 +9,7 @@ public class Displays {
         System.out.println("Please input correct choice");
     }
     public void display(List<Vehicle> vehicles) {
-
+        vehicles.forEach(System.out::println);
     }
     public void display(Vehicle vehicle) {
 
