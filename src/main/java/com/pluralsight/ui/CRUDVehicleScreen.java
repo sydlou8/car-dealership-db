@@ -13,21 +13,21 @@ public class CRUDVehicleScreen {
         while(true) {
             System.out.println("Please enter the vehicle details to add: ");
             try {
-                System.out.println("VIN: ");
+                System.out.print("VIN: ");
                 int vin = Integer.parseInt(userInput.nextLine().strip());
-                System.out.println("YEAR: ");
+                System.out.print("YEAR: ");
                 int year = Integer.parseInt(userInput.nextLine().strip());
-                System.out.println("MAKE: ");
+                System.out.print("MAKE: ");
                 String make = userInput.nextLine().strip();
-                System.out.println("MODEL: ");
+                System.out.print("MODEL: ");
                 String model = userInput.nextLine().strip();
-                System.out.println("VEHICLE TYPE: ");
+                System.out.print("VEHICLE TYPE: ");
                 String vehicleType = userInput.nextLine().strip();
-                System.out.println("COLOR: ");
+                System.out.print("COLOR: ");
                 String color = userInput.nextLine().strip();
-                System.out.println("MILEAGE: ");
+                System.out.print("MILEAGE: ");
                 int odometer = Integer.parseInt(userInput.nextLine().strip());
-                System.out.println("PRICE: $");
+                System.out.print("PRICE: $");
                 double price = Double.parseDouble(userInput.nextLine().strip());
 
                 return new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);

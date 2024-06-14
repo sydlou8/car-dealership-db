@@ -1,22 +1,61 @@
 package com.pluralsight.application;
 
 import com.pluralsight.controllers.VehicleController;
+import com.pluralsight.models.Vehicle;
 import com.pluralsight.services.VehicleDao;
 import com.pluralsight.services.mysql.MySqlVehicleDao;
-import com.pluralsight.ui.Displays;
-import com.pluralsight.ui.HomeScreen;
-import com.pluralsight.ui.CRUDVehicleScreen;
-import com.pluralsight.ui.SearchVehicleScreen;
+import com.pluralsight.ui.*;
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
 
 public class CarDealership {
-    VehicleDao vehicleDao = new MySqlVehicleDao();
+    private DataSource dataSource;
+    private VehicleDao vehicleDao;
 
-    Displays displays = new Displays();
-    HomeScreen homeScreen = new HomeScreen();
-    CRUDVehicleScreen crudScreen = new CRUDVehicleScreen();
-    SearchVehicleScreen searchScreen = new SearchVehicleScreen();
+    private Displays displays;
+    private HomeScreen homeScreen;
+    private CRUDVehicleScreen crudScreen;
+    private SearchVehicleScreen searchScreen;
 
-    VehicleController vehicleController = new VehicleController(vehicleDao);
+    private VehicleController vehicleController;
+
+    public CarDealership() {
+        this.dataSource = buildDataSource();
+        this.vehicleDao = new MySqlVehicleDao(dataSource);
+        this.displays = new Displays();
+        this.homeScreen = new HomeScreen();
+        this.crudScreen = new CRUDVehicleScreen();
+        this.searchScreen = new SearchVehicleScreen();
+        this.vehicleController = new VehicleController(vehicleDao);
+    }
+
+    private DataSource buildDataSource()
+    {
+        try (FileInputStream stream = new FileInputStream("src/main/resources/config.properties")) {
+            // first get the variables from the properties file
+            Properties properties = new Properties();
+            properties.load(stream);
+
+            String connectionString = properties.getProperty("db.connectionString");
+            String username = properties.getProperty("db.username");
+            String password = properties.getProperty("db.password");
+
+            // build a BasicDataSource object
+            BasicDataSource dataSource = new BasicDataSource();
+            dataSource.setUrl(connectionString);
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
+
+            return dataSource;
+
+        } catch (IOException _) {}
+        return null;
+    }
 
     public void run () {
         int choice = homeScreen.getHomeScreen();
@@ -48,7 +87,8 @@ public class CarDealership {
                displays.display(vehicleController.searchByVehicleType(searchScreen.vehicleType()));
                break;
            case 7:
-               displays.display(vehicleController.getAll());
+               List<Vehicle> vehicles = vehicleController.getAll();
+               displays.display(vehicles);
                break;
            case 8:
                vehicleController.add(crudScreen.addVehicle());

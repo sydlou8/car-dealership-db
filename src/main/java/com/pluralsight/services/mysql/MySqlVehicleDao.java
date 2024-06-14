@@ -11,13 +11,17 @@ import java.util.List;
 public class MySqlVehicleDao implements VehicleDao {
     private DataSource dataSource;
 
+    public MySqlVehicleDao (DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     private Vehicle mapRow(ResultSet row) {
         try {
             int vin = row.getInt("vin");
             int year = row.getInt("year");
             String make = row.getString("make");
             String model = row.getString("model");
-            String vehicleType = row.getString("vehicleType");
+            String vehicleType = row.getString("vehicle_type");
             String color = row.getString("color");
             int odometer = row.getInt("odometer");
             double price = row.getDouble("price");
@@ -39,7 +43,7 @@ public class MySqlVehicleDao implements VehicleDao {
                         , year
                         , make
                         , model
-                        , vehicleType
+                        , vehicle_type
                         , color
                         , odometer
                         , price
@@ -76,7 +80,6 @@ public class MySqlVehicleDao implements VehicleDao {
                 Vehicle vehicle = mapRow(row);
                 vehicles.add(vehicle);
             }
-            return List.of();
         } catch (SQLException _) {}
         return vehicles;
     }
@@ -191,7 +194,7 @@ public class MySqlVehicleDao implements VehicleDao {
         try (Connection connection = dataSource.getConnection()){
             String sql = """
                     SELECT * FROM vehicles
-                    WHERE vehicleType = ?;
+                    WHERE vehicle_type = ?;
                     """;
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, vehicleType);
