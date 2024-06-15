@@ -2,6 +2,6 @@ package com.pluralsight.services;
 
 import com.pluralsight.models.contracts.LeaseContract;
 
-public interface LeaseDao extends ContractDao{
+public interface LeaseDao {
     void saveContract(LeaseContract contract);
 }

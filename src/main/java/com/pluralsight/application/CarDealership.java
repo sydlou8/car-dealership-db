@@ -4,9 +4,7 @@ import com.pluralsight.controllers.ContractController;
 import com.pluralsight.controllers.VehicleController;
 import com.pluralsight.models.Vehicle;
 import com.pluralsight.models.contracts.Contract;
-import com.pluralsight.models.contracts.LeaseContract;
-import com.pluralsight.models.contracts.SalesContract;
-import com.pluralsight.services.ContractDao;
+
 import com.pluralsight.services.VehicleDao;
 import com.pluralsight.services.mysql.MySqlVehicleDao;
 import com.pluralsight.ui.*;
