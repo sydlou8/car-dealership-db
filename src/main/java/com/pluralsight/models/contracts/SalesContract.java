@@ -17,21 +17,8 @@ public class SalesContract extends Contract {
 
     }
 
-    public double getSALES_TAX() {
-        return SALES_TAX;
-    }
-    public double getRECORDING_FEE() {
-        return RECORDING_FEE;
-    }
-    public double getPROCESSING_FEE() {
-        return PROCESSING_FEE;
-    }
-
     public boolean isFinance() {
         return finance;
-    }
-    public void setFinance(boolean finance) {
-        this.finance = finance;
     }
 
     @Override

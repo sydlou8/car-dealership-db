@@ -11,7 +11,4 @@ public class Displays {
     public void display(List<Vehicle> vehicles) {
         vehicles.forEach(System.out::println);
     }
-    public void display(Vehicle vehicle) {
-
-    }
 }

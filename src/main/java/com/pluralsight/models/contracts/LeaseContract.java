@@ -6,19 +6,10 @@ public class LeaseContract extends Contract {
     double expectedEndingPrice;
     final double LEASE_FEE;
 
-    //final double LEASE_RATE = 0.07;
-
     public LeaseContract( String customerName, String customerEmail, Vehicle vehicleSold) {
         super(customerName, customerEmail, vehicleSold);
         this.expectedEndingPrice = super.totalPrice / 2;
         this.LEASE_FEE = super.totalPrice * 0.07;
-    }
-
-    public double getExpectedEndingPrice() {
-        return expectedEndingPrice;
-    }
-    public void setExpectedEndingPrice(double expectedEndingPrice) {
-        this.expectedEndingPrice = expectedEndingPrice;
     }
 
     public double getLEASE_FEE() {

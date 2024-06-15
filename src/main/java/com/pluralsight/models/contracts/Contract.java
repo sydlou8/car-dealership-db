@@ -11,7 +11,6 @@ public abstract class Contract {
     String customerEmail;
     Vehicle vehicleSold;
     double totalPrice;
-    double monthlyPayment;
 
     public Contract(String customerName, String customerEmail, Vehicle vehicleSold){
         LocalDateTime now = LocalDateTime.now();
