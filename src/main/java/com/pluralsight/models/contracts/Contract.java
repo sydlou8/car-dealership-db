@@ -68,4 +68,8 @@ public abstract class Contract {
         return (p * r * (double)Math.pow(1 + r, t))
                 / (double)(Math.pow(1 + r, t) - 1);
     }
+    @Override
+    public String toString() {
+        return String.format("%-20s%-10s%-20s%10d\t$ %10.2f", date, customerName, customerEmail,vehicleSold.getVin(), totalPrice);
+    }
 }

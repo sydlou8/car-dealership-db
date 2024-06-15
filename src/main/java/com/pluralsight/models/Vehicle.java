@@ -57,20 +57,6 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("""
-                        -----------------------------------------
-                        VEHICLE:
-                            VIN:        %-10d
-                            Year:       %-10d
-                            Make:       %-10s
-                            Model:      %-10s
-                            Color:      %-10s
-                            Mileage:    %-10d mi
-                            Type:       %-10s
-                        - - - - - - - - - - - - - - - - - - - - -
-                            Price:      $%-8.2f
-                        -----------------------------------------
-                        """, vin, year, make, model, color, odometer, vehicleType, price
-        );
+        return String.format("%-10d%-6d%-18s%-25s%-10s%-8dmi\t\t%-15s\t$\t%10.2f", vin, year, make, model, color, odometer, vehicleType, price);
     }
 }
