@@ -34,6 +34,10 @@ public class VehicleController {
         return vehicleDao.getByVehicleType(vehicleType);
     }
 
+    public Vehicle getVehicle(int vin) {
+        return vehicleDao.getVehicle(vin);
+    }
+
     public void add(Vehicle vehicle) {
         vehicleDao.addVehicle(vehicle);
     }

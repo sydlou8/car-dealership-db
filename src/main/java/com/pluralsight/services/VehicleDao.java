@@ -18,6 +18,9 @@ public interface VehicleDao {
     List<Vehicle> getByMileage(int min, int max);
     List<Vehicle> getByVehicleType(String vehicleType);
 
+    // Needed for Contracts
+    Vehicle getVehicle(int vin);
+
     // Update -- Not Needed for workshop
     //void updateVehicle (Vehicle vehicle);
 

@@ -191,7 +191,7 @@ public class MySqlVehicleDao implements VehicleDao {
     @Override
     public List<Vehicle> getByVehicleType(String vehicleType) {
         List<Vehicle> vehicles = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
             String sql = """
                     SELECT * FROM vehicles
                     WHERE vehicle_type = ?;
@@ -206,6 +206,40 @@ public class MySqlVehicleDao implements VehicleDao {
             }
         } catch (SQLException _) {}
         return vehicles;
+    }
+
+    public Vehicle getVehicle(int vin) {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = """
+                    SELECT vin
+                        , year
+                        , make
+                        , model
+                        , vehicle_type
+                        , color
+                        , odometer
+                        , price
+                    FROM vehicles
+                    WHERE vin = ?
+                    """;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, vin);
+
+            ResultSet row = statement.executeQuery();
+            if(row.next()) {
+                int curr_vin = row.getInt("vin");
+                int year = row.getInt("year");
+                String make = row.getString("make");
+                String model = row.getString("model");
+                String vehicle_type = row.getString("vehicle_type");
+                String color = row.getString("color");
+                int odometer = row.getInt("odometer");
+                double price = row.getDouble("price");
+                return new Vehicle(curr_vin, year, make, model, vehicle_type, color, odometer, price);
+            }
+
+        } catch (SQLException _) {}
+        return null;
     }
 
     @Override

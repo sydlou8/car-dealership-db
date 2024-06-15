@@ -24,6 +24,7 @@ public class HomeScreen {
                         [7] - List All Vehicles
                         [8] - Add a Vehicle
                         [9] - Remove a Vehicle
+                        [0] - Add a new Contract (Lease/Buy)
                         [any other key] - Quit"
                         
                         Please make a selection:

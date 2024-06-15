@@ -1,7 +1,12 @@
 package com.pluralsight.application;
 
+import com.pluralsight.controllers.ContractController;
 import com.pluralsight.controllers.VehicleController;
 import com.pluralsight.models.Vehicle;
+import com.pluralsight.models.contracts.Contract;
+import com.pluralsight.models.contracts.LeaseContract;
+import com.pluralsight.models.contracts.SalesContract;
+import com.pluralsight.services.ContractDao;
 import com.pluralsight.services.VehicleDao;
 import com.pluralsight.services.mysql.MySqlVehicleDao;
 import com.pluralsight.ui.*;
@@ -21,8 +26,10 @@ public class CarDealership {
     private HomeScreen homeScreen;
     private CRUDVehicleScreen crudScreen;
     private SearchVehicleScreen searchScreen;
+    private ContractScreen contractScreen;
 
     private VehicleController vehicleController;
+    private ContractController contractController;
 
     public CarDealership() {
         this.dataSource = buildDataSource();
@@ -31,11 +38,12 @@ public class CarDealership {
         this.homeScreen = new HomeScreen();
         this.crudScreen = new CRUDVehicleScreen();
         this.searchScreen = new SearchVehicleScreen();
+        this.contractScreen = new ContractScreen();
         this.vehicleController = new VehicleController(vehicleDao);
+        this.contractController = new ContractController(dataSource, vehicleController);
     }
 
-    private DataSource buildDataSource()
-    {
+    private DataSource buildDataSource() {
         try (FileInputStream stream = new FileInputStream("src/main/resources/config.properties")) {
             // first get the variables from the properties file
             Properties properties = new Properties();
@@ -58,8 +66,10 @@ public class CarDealership {
     }
 
     public void run () {
-        int choice = homeScreen.getHomeScreen();
-        handleChoice(choice);
+        while(true) {
+            int choice = homeScreen.getHomeScreen();
+            handleChoice(choice);
+        }
     }
 
     private void handleChoice(int choice) {
@@ -96,8 +106,38 @@ public class CarDealership {
            case 9:
                vehicleController.remove(crudScreen.removeVehicle());
                break;
+           case 0:
+               handleContracts();
+               break;
            default:
+               System.out.println("Goodbye!");
                System.exit(0);
        }
+    }
+
+    private void handleContracts() {
+        int type = contractScreen.getContract();
+        String[] userInfo;
+        int vin;
+        switch(type) {
+            case 1:
+                // Lease
+                userInfo = contractScreen.getUser();
+                vin = contractScreen.getVin();
+                Contract leaseContract = contractController.processLeaseContract(userInfo, vin);
+                contractController.add(leaseContract);
+                break;
+            case 2:
+                // buy
+                userInfo = contractScreen.getUser();
+                vin = contractScreen.getVin();
+                boolean finance = contractScreen.getFinance();
+                Contract salesContract = contractController.processSalesContract(userInfo, vin, finance);
+                contractController.add(salesContract);
+                break;
+            default:
+                System.out.println("Goodbye!");
+                System.exit(0);
+        }
     }
 }
